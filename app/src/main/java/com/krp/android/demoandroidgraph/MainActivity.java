@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.BaseSeries;
@@ -34,15 +35,25 @@ public class MainActivity extends AppCompatActivity {
          * the type of the chart is defined through the series class that you are using.
          * You always use the class GraphView and add the Series subclasses.
          */
-        PointsGraphSeries<DataPoint> series = new PointsGraphSeries<>(new DataPoint[] {
+        PointsGraphSeries<DataPoint> pointPointsGraphSeries = new PointsGraphSeries<>(new DataPoint[] {
                 new DataPoint(0, 1),
                 new DataPoint(1, 5),
                 new DataPoint(2, 3),
                 new DataPoint(3, 2),
                 new DataPoint(4, 6)
         });
-        series.setSize(12f);
-        graph.addSeries(series);
+        pointPointsGraphSeries.setSize(12f);
+        graph.addSeries(pointPointsGraphSeries);
+
+        LineGraphSeries<DataPoint> lineGraphSeries = new LineGraphSeries<>(new DataPoint[] {
+                new DataPoint(0, 1),
+                new DataPoint(1, 5),
+                new DataPoint(2, 3),
+                new DataPoint(3, 2),
+                new DataPoint(4, 6)
+        });
+        graph.addSeries(lineGraphSeries);
+
 
         /**
          * If you have used static labels, you can use this in GraphView 4.0 in another way.
@@ -71,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                     // show currency for y values
                     String IndianRupee = "";
                     try {
-                        IndianRupee = new String("\u20B9".getBytes(),"UTF-8");
+                        IndianRupee = new String("\u20B9".getBytes(), "UTF-8");
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
@@ -101,5 +112,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         graph.setTitle("foo");
+        graph.setTitleTextSize(32f);
+        graph.setTitleColor(Color.BLUE);
+
+
+        GridLabelRenderer labelRenderer = graph.getGridLabelRenderer();
+        labelRenderer.setGridStyle(GridLabelRenderer.GridStyle.NONE);
     }
 }
